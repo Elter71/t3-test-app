@@ -6,10 +6,9 @@ import {
   pgTableCreator,
   primaryKey,
   text,
-  timestamp,
+  timestamp, uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { type AdapterAccount } from "next-auth/adapters";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -113,3 +112,19 @@ export const invitation = pgTable("invitation", {
   expiresAt: timestamp('expires_at').notNull(),
   inviterId: text('inviter_id').notNull().references(()=> user.id)
 });
+
+export const organizationAccount = pgTable("organization_account", {
+  id: uuid('id').defaultRandom().primaryKey(),
+  organizationId: text('organization_id').notNull().references(()=> organization.id),
+  accountId: text('account_id').references(()=> account.id),
+  createdAt: timestamp('created_at').notNull(),
+  status: text('status'),
+  ownerId: text('user_id').notNull().references(() => user.id),
+})
+
+export const accountOfflineToken = pgTable("account_offline_token", {
+  id: uuid('id').defaultRandom().primaryKey(),
+  accountId: text('account_id').notNull().references(() => account.id),
+  expiresAt: timestamp('expires_at'),
+  createdAt: timestamp('created_at').notNull(),
+})

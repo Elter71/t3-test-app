@@ -68,10 +68,11 @@ export default async function Home() {
                         const res = await auth.api.signInSocial({
                           body: {
                             provider: "discord",
-                            callbackURL: "/",
+                            callbackURL: '/'
                           },
                         });
                         redirect(res.url);
+
                       }
                 }
                 className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
@@ -80,6 +81,8 @@ export default async function Home() {
               </button>
             </div>
           </div>
+
+          {/*<SessionName/>*/}
 
           {session && <LatestPost />}
 

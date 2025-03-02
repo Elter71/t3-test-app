@@ -8,6 +8,27 @@
       "when": 1739204329120,
       "tag": "0000_fair_vapor",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1739276969189,
+      "tag": "0001_furry_makkari",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739715785404,
+      "tag": "0002_pale_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1739736169460,
+      "tag": "0003_flawless_firebird",
+      "breakpoints": true
     }
   ]
 }

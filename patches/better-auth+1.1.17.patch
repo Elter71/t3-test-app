@@ -1,0 +1,30 @@
+diff --git a/node_modules/better-auth/dist/chunk-GO3TFFMC.cjs b/node_modules/better-auth/dist/chunk-GO3TFFMC.cjs
+index 1304f36..57348da 100644
+--- a/node_modules/better-auth/dist/chunk-GO3TFFMC.cjs
++++ b/node_modules/better-auth/dist/chunk-GO3TFFMC.cjs
+@@ -1630,7 +1630,9 @@ var callbackOAuth = createAuthEndpoint(
+       const newAccount = await c.context.internalAdapter.createAccount({
+         userId: link.userId,
+         providerId: provider.id,
+-        accountId: userInfo.id
++        accountId: userInfo.id,
++        ...tokens,
++        scope: tokens.scopes?.join(","),
+       });
+       if (!newAccount) {
+         return redirectOnError("unable_to_link_account");
+diff --git a/node_modules/better-auth/dist/chunk-Y4MIQB37.js b/node_modules/better-auth/dist/chunk-Y4MIQB37.js
+index 1f093c2..a2c1053 100644
+--- a/node_modules/better-auth/dist/chunk-Y4MIQB37.js
++++ b/node_modules/better-auth/dist/chunk-Y4MIQB37.js
+@@ -1629,7 +1629,9 @@ var callbackOAuth = createAuthEndpoint(
+       const newAccount = await c.context.internalAdapter.createAccount({
+         userId: link.userId,
+         providerId: provider.id,
+-        accountId: userInfo.id
++        accountId: userInfo.id,
++        ...tokens,
++        scope: tokens.scopes?.join(","),
+       });
+       if (!newAccount) {
+         return redirectOnError("unable_to_link_account");
