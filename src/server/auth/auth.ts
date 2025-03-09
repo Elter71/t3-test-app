@@ -1,14 +1,13 @@
-import {oAuthProxy, organization} from "better-auth/plugins"
+import { organization } from "better-auth/plugins"
 import {Account, BetterAuthOptions} from "better-auth";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import {db} from "~/server/db";
 import {env} from "~/env";
-import {createAuthMiddleware} from "better-auth/api";
-import {organizationAccount} from "~/server/db/schema";
-import {OrganizationStatus} from "~/server/db/organization-account-status";
-import {eq} from "drizzle-orm";
 import {connectOrganizationAccountWithNewAccount} from "~/server/services/organization-account";
+import {getAndSaveOfflineToken} from "~/server/services/offline-token";
+import {account} from "~/server/db/schema";
+import {eq} from "drizzle-orm";
 
 
 
@@ -43,23 +42,20 @@ export const config = {
       redirectURI:  'http://localhost:3000/api/auth/callback/facebook'
     }
   },
-  hooks: {
-    before: createAuthMiddleware(async (ctx) => {
-      console.log("Before");
-      console.log({path: ctx.path, body: ctx.body, params: ctx.params});
-    }),
-
-    after: createAuthMiddleware(async (ctx) => {
-      console.log("After");
-
-    }),
-
-  },
   databaseHooks: {
     account: {
       create: {
-        after: async (account: Account) => {
-          await connectOrganizationAccountWithNewAccount(account)
+        after: async (acc: Account) => {
+          try {
+            await connectOrganizationAccountWithNewAccount(acc)
+            if(acc.providerId == 'facebook') {
+              await getAndSaveOfflineToken(acc)
+            }
+          }catch (error) {
+            console.error(error)
+            await db.delete(account).where(eq(account.id, acc.id))
+          }
+
         }
       }
     }

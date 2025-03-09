@@ -29,6 +29,27 @@
       "when": 1739736169460,
       "tag": "0003_flawless_firebird",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1740922474585,
+      "tag": "0004_bright_captain_america",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741513141934,
+      "tag": "0005_solid_energizer",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741516585649,
+      "tag": "0007_spicy_ser_duncan",
+      "breakpoints": true
     }
   ]
 }

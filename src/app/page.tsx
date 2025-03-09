@@ -64,17 +64,19 @@ export default async function Home() {
                         throw redirect("/");
                       }
                     : async () => {
-                        "use server";
-                        const res = await auth.api.signInSocial({
-                          body: {
-                            provider: "discord",
-                            callbackURL: '/'
-                          },
-                        });
-                        redirect(res.url);
+                      "use server";
+                      console.log("Consoe log")
+                      const res = await auth.api.signInSocial({
+                        body: {
+                          provider: "discord",
+                          callbackURL: '/'
+                        },
+                      });
+                      console.log({res})
+                      redirect(res.url);
 
-                      }
-                }
+
+                }}
                 className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
               >
                 {session ? "Sign out" : "Sign in"}

@@ -1,0 +1,2 @@
+ALTER TABLE "account_offline_token" ALTER COLUMN "created_at" SET DATA TYPE timestamp with time zone;--> statement-breakpoint
+ALTER TABLE "account_offline_token" ALTER COLUMN "created_at" SET DEFAULT CURRENT_TIMESTAMP;

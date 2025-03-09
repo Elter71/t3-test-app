@@ -63,6 +63,14 @@ export const authRouter = {
       }).where(eq(organizationAccount.id, pendingOrganizationAccount.id))
     }
 
+    const response = await auth.api.linkSocialAccount({
+      headers: ctx.headers,
+      body: {
+        provider: input.provider,
+        callbackURL: '/organization'
+      }
+    })
+
     await db.insert(organizationAccount).values({
       organizationId: member.organizationId,
       ownerId: userId,
@@ -70,12 +78,6 @@ export const authRouter = {
       createdAt: new Date(),
     })
 
-    return await auth.api.linkSocialAccount({
-      headers: ctx.headers,
-      body: {
-        provider: input.provider,
-        callbackURL: '/organization'
-      }
-    })
+    return response
   })
 } satisfies TRPCRouterRecord;

@@ -1,0 +1,1 @@
+ALTER TABLE "account_offline_token" ADD COLUMN "token" text;

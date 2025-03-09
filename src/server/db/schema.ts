@@ -1,10 +1,9 @@
-import { relations, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import {
   boolean,
   index,
   integer, pgTable,
   pgTableCreator,
-  primaryKey,
   text,
   timestamp, uuid,
   varchar,
@@ -116,7 +115,7 @@ export const invitation = pgTable("invitation", {
 export const organizationAccount = pgTable("organization_account", {
   id: uuid('id').defaultRandom().primaryKey(),
   organizationId: text('organization_id').notNull().references(()=> organization.id),
-  accountId: text('account_id').references(()=> account.id),
+  accountId: text('account_id').references(()=> account.id,  { onDelete: "cascade" }),
   createdAt: timestamp('created_at').notNull(),
   status: text('status'),
   ownerId: text('user_id').notNull().references(() => user.id),
@@ -124,7 +123,9 @@ export const organizationAccount = pgTable("organization_account", {
 
 export const accountOfflineToken = pgTable("account_offline_token", {
   id: uuid('id').defaultRandom().primaryKey(),
-  accountId: text('account_id').notNull().references(() => account.id),
+  accountId: text('account_id').notNull().references(() => account.id, { onDelete: "cascade" }),
   expiresAt: timestamp('expires_at'),
-  createdAt: timestamp('created_at').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  token: text('token')
 })

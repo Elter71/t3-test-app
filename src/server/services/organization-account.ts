@@ -5,6 +5,7 @@ import {eq} from "drizzle-orm";
 import {type Account} from "better-auth";
 
 export const connectOrganizationAccountWithNewAccount = async (account: Account): Promise<void> => {
+
   const orgAccount = await db.query.organizationAccount.findFirst(
     {
       where:(organizationAccount, {eq, and}) => and(eq(organizationAccount.ownerId, account.userId), eq(organizationAccount.status, OrganizationStatus.PENDING)),
